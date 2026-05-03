@@ -328,42 +328,46 @@
                                     </div>
                                     <button onClick={() => setShowAddModal(true)} className="bg-slate-900 text-white px-8 py-3 rounded-2xl font-black text-sm hover:bg-black transition-all shadow-lg shadow-slate-200 uppercase tracking-widest">Barang Baru</button>
                                 </div>
-                                <div id="main-content" style="display: none;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px;">
-                                <h2 class="text-xl font-bold">Panel Manajemen Stok</h2>
-                                <button onclick="handleLogout()" class="bg-red-500 text-white px-4 py-2 rounded shadow">Logout</button>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-sm">
+                                        <thead className="bg-slate-50 text-[10px] uppercase font-black text-slate-400 tracking-widest border-b">
+                                            <tr>
+                                                <th className="px-8 py-5">Produk</th>
+                                                <th className="px-8 py-5">Kategori</th>
+                                                <th className="px-8 py-5">Stok Saat Ini</th>
+                                                <th className="px-8 py-5">Status</th>
+                                                <th className="px-8 py-5">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-50">
+                                            {items.filter(i=>i.name.toLowerCase().includes(search.toLowerCase())).map(item => (
+                                                <tr key={item.id} className="hover:bg-slate-50/50 transition-colors">
+                                                    <td className="px-8 py-4">
+                                                        <div className="flex items-center gap-4">
+                                                            <div className="w-12 h-12 rounded-xl bg-slate-100 overflow-hidden border border-slate-200 flex-shrink-0">
+                                                                {item.imageUrl ? <img src={item.imageUrl} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center"><Icon name="image" size={18} className="text-slate-300" /></div>}
+                                                            </div>
+                                                            <span className="font-bold text-slate-800">{item.name}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td className="px-8 py-4"><span className="text-[10px] font-black bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg uppercase tracking-tighter">{item.category}</span></td>
+                                                    <td className="px-8 py-4 font-black text-lg">{item.stock} <span className="text-[10px] text-slate-400 font-bold uppercase">{item.unit}</span></td>
+                                                    <td className="px-8 py-4">
+                                                        {item.stock <= item.minStock ? (
+                                                            <span className="text-rose-600 font-black text-[10px] uppercase tracking-tighter flex items-center gap-1"><Icon name="alert-triangle" size={12}/> Kritis</span>
+                                                        ) : (
+                                                            <span className="text-emerald-600 font-black text-[10px] uppercase tracking-tighter flex items-center gap-1"><Icon name="check-circle" size={12}/> Stabil</span>
+                                                        )}
+                                                    </td>
+                                                    <td className="px-8 py-4">
+                                                        <button onClick={()=>{ if(confirm('Hapus barang ini?')) window.fb.deleteDoc(window.fb.doc(window.fb.db, 'artifacts', window.fb.appId, 'public', 'data', 'items', item.id))}} className="w-8 h-8 flex items-center justify-center text-rose-300 hover:text-rose-600 transition-colors"><Icon name="trash-2" size={16}/></button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        <div id="login-section" style="padding: 50px; text-align: center;">
-    <h2>Akses Sistem Gudang</h2>
-    <input type="email" id="email" placeholder="Email" style="display: block; margin: 10px auto; padding: 10px;">
-    <input type="password" id="password" placeholder="Password" style="display: block; margin: 10px auto; padding: 10px;">
-    <button onclick="handleLogin()" style="padding: 10px 20px;">Masuk</button>
-</div>
-
-            <!-- 2. BAGIAN UTAMA (Berisi tabel stok barang kamu) -->
-            <div id="main-content" style="display: none;">
-                <div style="display: flex; justify-content: space-between; padding: 20px;">
-                    <h3>Data Inventaris</h3>
-                    <button onclick="handleLogout()">Keluar</button>
-                </div>
-            
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-[10px] uppercase font-black text-slate-400 tracking-widest border-b">
-                            <tr>
-                                <th class="px-8 py-5">Produk</th>
-                                <th class="px-8 py-5">Kategori</th>
-                                <th class="px-8 py-5">Stok Saat Ini</th>
-                                <th class="px-8 py-5">Status</th>
-                                <th class="px-8 py-5">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="product-list">
-                            <!-- Data akan diisi oleh JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
                                                 )}
 
                         {activeTab === 'history' && (
