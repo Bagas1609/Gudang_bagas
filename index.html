@@ -333,25 +333,37 @@
                                 <h2 class="text-xl font-bold">Panel Manajemen Stok</h2>
                                 <button onclick="handleLogout()" class="bg-red-500 text-white px-4 py-2 rounded shadow">Logout</button>
                             </div>
-                        <div id="login-section">
-                            <!-- TABEL STOK BARANG KAMU MULAI DARI SINI -->
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-left text-sm">
-                                    <thead class="bg-slate-50 text-[10px] uppercase font-black text-slate-400 tracking-widest border-b">
-                                        <tr>
-                                            <th class="px-8 py-5">Produk</th>
-                                            <th class="px-8 py-5">Kategori</th>
-                                            <th class="px-8 py-5">Stok Saat Ini</th>
-                                            <th class="px-8 py-5">Status</th>
-                                            <th class="px-8 py-5">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="product-list">
-                                        <!-- Data produk akan muncul di sini melalui JavaScript -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <div id="login-section" style="padding: 50px; text-align: center;">
+    <h2>Akses Sistem Gudang</h2>
+    <input type="email" id="email" placeholder="Email" style="display: block; margin: 10px auto; padding: 10px;">
+    <input type="password" id="password" placeholder="Password" style="display: block; margin: 10px auto; padding: 10px;">
+    <button onclick="handleLogin()" style="padding: 10px 20px;">Masuk</button>
+</div>
+
+            <!-- 2. BAGIAN UTAMA (Berisi tabel stok barang kamu) -->
+            <div id="main-content" style="display: none;">
+                <div style="display: flex; justify-content: space-between; padding: 20px;">
+                    <h3>Data Inventaris</h3>
+                    <button onclick="handleLogout()">Keluar</button>
+                </div>
+            
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-[10px] uppercase font-black text-slate-400 tracking-widest border-b">
+                            <tr>
+                                <th class="px-8 py-5">Produk</th>
+                                <th class="px-8 py-5">Kategori</th>
+                                <th class="px-8 py-5">Stok Saat Ini</th>
+                                <th class="px-8 py-5">Status</th>
+                                <th class="px-8 py-5">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="product-list">
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
                                                 )}
 
                         {activeTab === 'history' && (
